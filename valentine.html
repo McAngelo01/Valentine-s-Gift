@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Surprise ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffebee;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* 400x400 Container */
+        .container {
+            text-align: center;
+            background: white;
+            width: 400px;
+            height: 450px; /* Dinagdagan ko ng konting height para sa link button */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 10;
+            border: 3px solid #ff4d6d;
+            position: relative;
+            padding: 20px;
+        }
+
+        h1 { color: #ff4d6d; font-size: 1.5rem; margin-bottom: 20px; }
+
+        /* Malinaw na Image Styling */
+        .main-img {
+            width: 200px;
+            height: 180px;
+            object-fit: contain;
+            border-radius: 15px;
+            margin-bottom: 10px;
+        }
+
+        /* Hiwalay na Buttons */
+        .button-group {
+            display: flex;
+            flex-direction: column; 
+            gap: 15px; 
+            width: 100%;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 0;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 160px;
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            z-index: 11;
+        }
+
+        #noBtn {
+            background-color: #adb5bd;
+            color: white;
+            position: relative;
+            transition: 0.2s ease; /* Para smooth ang pag-iwas */
+        }
+
+        /* Facebook Link Button Style */
+        .fb-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: transparent;
+            color: #ff4d6d;
+            border: 2px solid #ff4d6d;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .fb-link:hover {
+            background-color: #ff4d6d;
+            color: white;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            animation: fall linear forwards;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        #success-msg { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainContainer">
+        <div id="question-ui">
+            <img src="giphy.gif" class="main-img" alt="Valentine Cat">
+            <h1>Gusto mo bang maka-tanggap din ng regalo ngayong Valentine day? ❤️</h1>
+            
+            <div class="button-group">
+                <button class="btn" id="yesBtn" onclick="sayYes()">YES!</button>
+                <button class="btn" id="noBtn" onmouseover="moveNo()">NO</button>
+            </div>
+        </div>
+
+        <div id="success-msg">
+            <img src="Gemini_Generated_Image_4fjfb04fjfb04fjf.png" class="main-img" alt="Happy Cat">
+            <h1>Yey! See you! ❤️</h1>
+            <p>I-send mo 'to sa mga kaibigan mo. 📸</p>
+            <a href="https://www.facebook.com/share/r/1AKuGYLYXB/" target="_blank" class="fb-link">
+                Facebook Reels😄
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function moveNo() {
+            const noBtn = document.getElementById('noBtn');
+            // Gagamit tayo ng window dimensions minus button size para hindi mawala sa screen
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+            
+            const texts = ["Mali!", "Dito sa YES!", "Wag makulit!", "Try again!"];
+            document.querySelector('h1').innerText = texts[Math.floor(Math.random() * texts.length)];
+        }
+
+        function sayYes() {
+            document.getElementById('question-ui').style.display = 'none';
+            document.getElementById('success-msg').style.display = 'block';
+            setInterval(createHeart, 150);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 1 + 's';
+            heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3000);
+        }
+    </script>
+</body>
+</html>
